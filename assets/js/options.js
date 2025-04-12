@@ -1,0 +1,1 @@
+const enableSmoothScroll=!1,enableCursorFollower=!0,enableParallaxImages=!1;
