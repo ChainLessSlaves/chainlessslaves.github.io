@@ -403,10 +403,10 @@
             authDomain: "wechainless.firebaseapp.com",
             databaseURL: "https://wechainless-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "wechainless",
-            storageBucket: "wechainless.appspot.com",
+            storageBucket: "wechainless.firebasestorage.app",
             messagingSenderId: "893609793198",
-            appId: "1:893609793198:web:26a51daacd3e8e4da8ff3f",
-            measurementId: "G-84GG1HP46E"
+            appId: "1:893609793198:web:8a5e8936e49f9305a8ff3f",
+            measurementId: "G-YEJ5331XCE"
         };
 
         // Initialize Firebase
@@ -420,13 +420,15 @@
         if (form) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const subject = document.getElementById('subject').value.trim();
-                const message = document.getElementById('message').value.trim();
+                // Get form fields by name attribute
+                const name = form.elements['first_name'].value.trim();
+                const email = form.elements['email'].value.trim();
+                const website = form.elements['website'].value.trim();
+                const comment = form.elements['comment'].value.trim();
+                const agree = form.elements['agree'].checked;
 
-                if (!name || !email || !subject || !message) {
-                    status.innerHTML = '<span style="color:red;">Please fill in all fields.</span>';
+                if (!name || !email || !website || !comment || !agree) {
+                    status.innerHTML = '<span style="color:red;">Please fill in all fields and agree to the terms.</span>';
                     return;
                 }
 
@@ -434,8 +436,8 @@
                     await push(ref(db, 'CLScontacts'), {
                         name,
                         email,
-                        subject,
-                        message,
+                        website,
+                        comment,
                         timestamp: Date.now()
                     });
                     status.innerHTML = '<span style="color:green;">Message sent successfully!</span>';
